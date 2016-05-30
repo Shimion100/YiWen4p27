@@ -1,14 +1,16 @@
+from __future__ import print_function;
 import numpy;
 import YiWenData;
-import LeNetConvPoolLayer;
-import LogisticRegression;
+from LeNetConvPoolLayer import LeNetConvPoolLayer;
+from LogisticRegression import  LogisticRegression;
 import theano
 import theano.tensor as T;
-from __future__ import print_function;
 import timeit
 import sys;
 import os;
 from mlp import HiddenLayer
+
+
 
 class CnnModel(object):
 
@@ -18,13 +20,12 @@ class CnnModel(object):
     def oriGinalInit(self, batch_size):
         learning_rate = 0.05
         self.n_epochs = 50,
-
         self.nkerns = [20, 50]
         self.batch_size = batch_size
 
 
         """
-            创建Model
+            create Model
         """
         self.rng = numpy.random.RandomState(23455)
         dataset = 'mnist.pkl.gz'
@@ -247,7 +248,7 @@ class CnnModel(object):
         self.batch_size = batch_size
 
         """
-            创建Model
+            create Model
         """
 
         datasets = YiWenData.load_data(dataset)
