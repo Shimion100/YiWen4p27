@@ -1,7 +1,7 @@
-# YiWen4p27
+# Introduce
 The first push
-#Introduce
+# Contents
 >This is a project for yiwen character pattern recognition..
 
-#Notes
+# Notes
 ...
