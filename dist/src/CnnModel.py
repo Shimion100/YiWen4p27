@@ -1,15 +1,16 @@
 from __future__ import print_function;
+
 import numpy;
-import YiWenData;
-from LeNetConvPoolLayer import LeNetConvPoolLayer;
-from LogisticRegression import  LogisticRegression;
+import os;
+import sys;
 import theano
 import theano.tensor as T;
 import timeit
-import sys;
-import os;
-from mlp import HiddenLayer
 
+import YiWenData;
+from LeNetConvPoolLayer import LeNetConvPoolLayer;
+from LogisticRegression import  LogisticRegression;
+from mlp import HiddenLayer
 
 
 class CnnModel(object):

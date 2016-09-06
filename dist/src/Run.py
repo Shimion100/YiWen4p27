@@ -1,19 +1,20 @@
 # coding=utf-8
 from __future__ import print_function
-from PIL import Image
+
 import gzip
-import os
-import sys
-import timeit
-import six.moves.cPickle as pickle
 import numpy
+import os
+import six.moves.cPickle as pickle
+import sys
 import theano
 import theano.tensor as T
-from theano.tensor.signal import downsample
+import timeit
+from PIL import Image
 from theano.tensor.nnet import conv2d
+from theano.tensor.signal import downsample
+
 import CnnModel;
 from mlp import HiddenLayer
-
 
 """
     这个肯爹货,竟然把他写成函数了,没有作成类,fuck!
