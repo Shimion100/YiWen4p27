@@ -41,11 +41,21 @@ def dir_to_dataset(glob_files):
         print(file_name)
         img = Image.open(file_name).convert('LA') #tograyscale
         pixels = [f[0] for f in list(img.getdata())]
+        filename=os.path.basename(file_name)
+        #print(filename[0:-4])
+        #pixels.append(int(filename[0:-4]))
+        pixels.insert(0,(filename[0:-4]))
         dataset.append(pixels)
         if file_count % 1000 == 0:
             print("\t %s files processed"%file_count)
+  #  print(dataset[0])
     return np.array(dataset)
-
+"""
+for this method update at 20160913 to add new code to support to create image.xml
+http://www.cnblogs.com/wangshide/archive/2011/10/29/2228936.html
+http://www.cnblogs.com/xiaowuyi/archive/2012/10/17/2727912.html
+http://www.cnblogs.com/coser/archive/2012/01/10/2318298.html
+"""
 def initDataSet():
     path="./train/data100/*";
     Data= dir_to_dataset(path)
@@ -54,6 +64,7 @@ def initDataSet():
     afileName = str(os.getcwd()) + "\\kmeans.data"
     #create the file
     file = open(afileName, 'w')
+
 
     #put the data into a file.
     print(len(Data))
@@ -70,19 +81,19 @@ def initDataSet():
     imagesRoot=root.documentElement
     #root=xml.etree.ElementTree.parse("image.xml");
 
-    for x in range(0, len(Data)):
+    for x in range(1, len(Data)):
         imageRoot=document.createElement("Image")
         id=document.createElement("Id")
         data=document.createElement("Data")
         aRow = Data[x]
         value=[]
-        for pix in range(0, len(aRow)):
+        for pix in range(1, len(aRow)):
             file.write(str(aRow[pix]))
             value.append(int(str(aRow[pix])))
             if pix != len(aRow) - 1:
                 file.write(",")
         #print(len(aRow))
-        id.appendChild(document.createTextNode("1"))
+        id.appendChild(document.createTextNode(aRow[0]))
         data.appendChild(document.createTextNode(str(value)))
         imagesRoot.appendChild(imageRoot)
         imageRoot.appendChild(id)
