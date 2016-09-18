@@ -57,7 +57,7 @@ http://www.cnblogs.com/xiaowuyi/archive/2012/10/17/2727912.html
 http://www.cnblogs.com/coser/archive/2012/01/10/2318298.html
 """
 def initDataSet():
-    path="./train/data100/*";
+    path="./train/test/*";
     Data= dir_to_dataset(path)
     # Data and labels are read
     #set a filename
@@ -67,9 +67,11 @@ def initDataSet():
 
 
     #put the data into a file.
+
     print(len(Data))
-    xmlFile=str(os.getcwd())+"\\image.xml"
-    if(os._exists(xmlFile)==False):
+    xmlFile=str(os.getcwd())+"\\image1.xml"
+
+    if(os.path.exists(xmlFile)==False):
          document=minidom.Document()
          document.appendChild(document.createComment("this is used for save a image file"))
          imagelist=document.createElement("Images")
@@ -81,10 +83,10 @@ def initDataSet():
     imagesRoot=root.documentElement
     #root=xml.etree.ElementTree.parse("image.xml");
 
-    for x in range(1, len(Data)):
+    for x in range(0, len(Data)):
         imageRoot=document.createElement("Image")
-        id=document.createElement("Id")
-        data=document.createElement("Data")
+        id=document.createElement("id")
+        data=document.createElement("data")
         aRow = Data[x]
         value=[]
         for pix in range(1, len(aRow)):
@@ -103,5 +105,12 @@ def initDataSet():
     root.writexml(f,addindent=' '*4, newl='\n', encoding='utf-8')
     f.close()
 
+def rmfile(xmlFile=str(os.getcwd())+"\\image.xml"):
+    try:
+        os.remove(xmlFile)
+    except:
+        print("not found file "+xmlFile)
+
 #run
+rmfile()
 initDataSet()

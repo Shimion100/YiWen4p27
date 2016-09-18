@@ -62,22 +62,22 @@ def bin(fileName):
 def binaryzationJpg(src):
 
     print("start binaryzationJpg()")
-    files = subfilesName(src + "/data100")
+    files = subfilesName(src)
     length = len(files)
     print("###########", src, "##", length, "###########")
     i = 1
     for f in files:
-        if os.path.isfile(os.path.join(src + "/data100", f)):
-            bin(os.path.join(src + "/data100", f))
+        if os.path.isfile(os.path.join(src , f)):
+            bin(os.path.join(src , f))
             i += 1
-            cropImage(os.path.join(src + "/data100", f))
+            cropImage(os.path.join(src , f))
 
 
 """
     only process one directory.
 """
 def binaryzations():
-    binaryzationJpg("./train")
+    binaryzationJpg("./train/test")
 
 
 # command=raw_input
