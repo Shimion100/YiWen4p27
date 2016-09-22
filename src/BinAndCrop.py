@@ -12,11 +12,22 @@ src = "./src"
 """
 
 
-def subfilesName(path):
+def subfilesName(directory):
     fl = []
+    subdir=os.listdir(directory)
+    """
     for i in os.walk(path, False):
         for f in i[2]:
             fl.append(f)
+    """
+    for i in subdir:
+        path=os.path.join(directory,i)
+        print(path)
+        if os.path.isdir(path):
+            fl.extend(subfilesName(path))
+        elif os.path.isfile(path):
+            fl.append(path)
+            print("add"+path)    
     return fl
 
 
@@ -62,22 +73,26 @@ def bin(fileName):
 def binaryzationJpg(src):
 
     print("start binaryzationJpg()")
-    files = subfilesName(src)
+    files = subfilesName(src)    
     length = len(files)
     print("###########", src, "##", length, "###########")
     i = 1
     for f in files:
-        if os.path.isfile(os.path.join(src , f)):
-            bin(os.path.join(src , f))
+        print("this is"+f)
+        if os.path.isfile(f):
+            #bin(os.path.join(src , f))
+            bin(f)
             i += 1
-            cropImage(os.path.join(src , f))
-
+            #cropImage(os.path.join(src , f))
+            cropImage(f)
+        print(f)
+    print("end binaryzationJpg()")
 
 """
     only process one directory.
 """
 def binaryzations():
-    binaryzationJpg("./train/test")
+    binaryzationJpg("./train/run")
 
 
 # command=raw_input
