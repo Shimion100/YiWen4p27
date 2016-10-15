@@ -63,7 +63,7 @@ http://www.cnblogs.com/coser/archive/2012/01/10/2318298.html
 """
 def initDataSet():
     #path="D:\Projects\\Python\\deeplay\\src\\train\\run\\*";
-    path="./train/test"
+    path="./train/run"
     Data= dir_to_dataset(path)
     Data=np.array(Data)
     # Data and labels are read

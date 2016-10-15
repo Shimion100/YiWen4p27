@@ -8,6 +8,8 @@ This repository is built for image pattern recognition.
 
 # Contents
 >This is a project for yiwen character pattern recognition..
+
+>with out train data.
 # About
 
 # Notes
