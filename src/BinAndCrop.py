@@ -1,6 +1,7 @@
 import os
 import sys
-import Image
+from PIL import Image
+#from PIL.Image import core as image
 import os, random, string, shutil
 
 path = "."
@@ -11,11 +12,22 @@ src = "./src"
 """
 
 
-def subfilesName(path):
+def subfilesName(directory):
     fl = []
+    subdir=os.listdir(directory)
+    """
     for i in os.walk(path, False):
         for f in i[2]:
             fl.append(f)
+    """
+    for i in subdir:
+        path=os.path.join(directory,i)
+        print(path)
+        if os.path.isdir(path):
+            fl.extend(subfilesName(path))
+        elif os.path.isfile(path):
+            fl.append(path)
+            print("add"+path)    
     return fl
 
 
@@ -25,7 +37,7 @@ def subfilesName(path):
 
 
 def cropImage(fileName):
-    print "Processing ... ", fileName
+    print("Processing ... ", fileName)
     # open the image
     img = Image.open(fileName)
     img = img.resize((28, 28), Image.ANTIALIAS)
@@ -38,7 +50,7 @@ def cropImage(fileName):
 
 
 def bin(fileName):
-    print "Processing ... ", fileName
+    print("Processing ... ", fileName)
     # open the image
     img = Image.open(fileName)
     img = img.convert("L")
@@ -47,8 +59,10 @@ def bin(fileName):
     rows = img.size[0]
     cols = img.size[1]
     # scan by cols
-    for y in xrange(cols):
-        for x in xrange(rows):
+
+    # you could change the range function to xrange function
+    for y in range(cols):
+        for x in range(rows):
             if pixdata[x, y] > 127:
                 pixdata[x, y] = 255
             else:
@@ -58,23 +72,27 @@ def bin(fileName):
 
 def binaryzationJpg(src):
 
-    print "start binaryzationJpg()"
-    files = subfilesName(src + "/data100")
+    print("start binaryzationJpg()")
+    files = subfilesName(src)    
     length = len(files)
-    print "###########", src, "##", length, "###########"
+    print("###########", src, "##", length, "###########")
     i = 1
     for f in files:
-        if os.path.isfile(os.path.join(src + "/data100", f)):
-            bin(os.path.join(src + "/data100", f))
+        print("this is"+f)
+        if os.path.isfile(f):
+            #bin(os.path.join(src , f))
+            bin(f)
             i += 1
-            cropImage(os.path.join(src + "/data100", f))
-
+            #cropImage(os.path.join(src , f))
+            cropImage(f)
+        print(f)
+    print("end binaryzationJpg()")
 
 """
     only process one directory.
 """
 def binaryzations():
-    binaryzationJpg("./train")
+    binaryzationJpg("./train/run")
 
 
 # command=raw_input
